@@ -44,21 +44,29 @@ public class GGBanque {
     }
   }
 
-  private void appliquerInterets() {
-    Set<Integer> numerosDesComptes = comptes.keySet();
-    for (int num : numerosDesComptes) {
-      int solde = comptes.get(num);
-      int nouveauSolde = (int) (solde * (1 + taux));
-      comptes.put(num, nouveauSolde);
-    }
+  private void quitter() {
+    fin = true;
+    System.out.println("À bientôt.");
   }
 
-  private void afficherInfosComptes() {
-    Set<Integer> numerosDesComptes = comptes.keySet();
-    System.out.println("La banque gère " + numerosDesComptes.size() + " comptes.");
-    for (int num : numerosDesComptes) {
-      System.out.println("\tCompte " + num + ": solde = " + comptes.get(num));
-    }
+  private void creerNouveauCompte() {
+    numCompteSelectionne = numDernierCompte++;
+    comptes.put(numCompteSelectionne, 0);
+    System.out.println("Le numéro de votre nouveau compte est : " + numCompteSelectionne);
+  }
+
+  private void selectionnerCompte() {
+    System.out.print("Entrez le numéro du compte : ");
+    numCompteSelectionne = scanner.nextInt();
+    int solde = comptes.get(numCompteSelectionne);
+    System.out.println("Le solde du compte " + numCompteSelectionne + " est " + solde);
+  }
+
+  private void crediterCompte() {
+    System.out.print("Entrez le montant : ");
+    int montant = scanner.nextInt();
+    int solde = comptes.get(numCompteSelectionne);
+    comptes.put(numCompteSelectionne, solde + montant);
   }
 
   private void demanderEmprunt() {
@@ -71,29 +79,21 @@ public class GGBanque {
       System.out.println("Votre demande est refusée.");
     }
   }
-
-  private void crediterCompte() {
-    System.out.print("Entrez le montant : ");
-    int montant = scanner.nextInt();
-    int solde = comptes.get(numCompteSelectionne);
-    comptes.put(numCompteSelectionne, solde + montant);
+  private void afficherInfosComptes() {
+    Set<Integer> numerosDesComptes = comptes.keySet();
+    System.out.println("La banque gère " + numerosDesComptes.size() + " comptes.");
+    for (int num : numerosDesComptes) {
+      System.out.println("\tCompte " + num + ": solde = " + comptes.get(num));
+    }
   }
 
-  private void selectionnerCompte() {
-    System.out.print("Entrez le numéro du compte : ");
-    numCompteSelectionne = scanner.nextInt();
-    int solde = comptes.get(numCompteSelectionne);
-    System.out.println("Le solde du compte " + numCompteSelectionne + " est " + solde);
+  private void appliquerInterets() {
+    Set<Integer> numerosDesComptes = comptes.keySet();
+    for (int num : numerosDesComptes) {
+      int solde = comptes.get(num);
+      int nouveauSolde = (int) (solde * (1 + taux));
+      comptes.put(num, nouveauSolde);
+    }
   }
 
-  private void quitter() {
-    fin = true;
-    System.out.println("À bientôt.");
-  }
-
-  private void creerNouveauCompte() {
-    numCompteSelectionne = numDernierCompte++;
-    comptes.put(numCompteSelectionne, 0);
-    System.out.println("Le numéro de votre nouveau compte est : " + numCompteSelectionne);
-  }
 }
